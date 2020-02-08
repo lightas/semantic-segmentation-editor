@@ -919,7 +919,13 @@ export default class SseEditor2d extends React.Component {
         this.onMsg("tagsChanged", () => this.saveData(true));
 
         this.onMsg("openJsonView", () => {
-            window.open(document.URL.replace("edit", "api/json"));
+	    console.log(this.props.imageUrl.split('%')[2].substr(2)+"-"+this.props.imageUrl.split('%')[3].substr(2)+".json")
+//            window.open(document.URL.replace("edit", "api/json"));
+		
+		const ele = document.createElement('a');
+		ele.setAttribute('href',document.URL.replace("edit", "api/json"));
+		ele.setAttribute('download' , this.props.imageUrl.split('%')[2].substr(2)+"-"+this.props.imageUrl.split('%')[3].substr(2)+".json");
+		ele.click();
         });
 
         this.onMsg("selectAll", (args) => {
@@ -1070,6 +1076,15 @@ export default class SseEditor2d extends React.Component {
             return false;
         });
 
+
+
+	//
+	const clslist = this.props.imageUrl.split('%')[2].substr(2)
+	console.log(clslist)
+	this.currentSample.socName = clslist
+	    //
+	    //
+	    //
         this.sendMsg("editor-ready", {value: this.currentSample});
         this.imageLoaded();
 
